@@ -9,7 +9,7 @@ stored_data = []
 USER_FILE = pathlib.Path("./users.json")
 LOCKOUT_DURATION = 60  # seconds
 
-KEY_FILE = pathlib.Path("./secrect.key") # initally this file does not exists
+KEY_FILE = pathlib.Path("./secrect.key") # initally this file does not existss
 
 
 #? creating a encryption and decrption key inside the secrect.key file
