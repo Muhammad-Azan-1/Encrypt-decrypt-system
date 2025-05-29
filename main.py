@@ -109,7 +109,7 @@ if option == 'login / register':
 
     with st.container():
         st.markdown("<div class='box'>", unsafe_allow_html=True)
-        st.markdown("<h1 style='text-align:center; font-size:30px;'>📚 Personal Library Manager  -  login Portal</h1>" , unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align:center; font-size:30px;'>🔒 Secure Data Encryption System -  login Portal</h1>" , unsafe_allow_html=True)
 
     with st.form("login_form"):
         name = st.text_input("Enter Your Name")
@@ -125,7 +125,7 @@ if option == 'login / register':
     #? regiteration form
     with st.container():
         st.markdown("<div class='box'>", unsafe_allow_html=True)
-        st.markdown("<h1 style='text-align:center; font-size:30px;'>📚 Personal Library Manager  -  Registration Portal</h1>" , unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align:center; font-size:30px;'>📚 🔒 Secure Data Encryption System -  Registration Portal</h1>" , unsafe_allow_html=True)
 
     with st.form("Register_form"):
         name = st.text_input("Enter Your Name")
