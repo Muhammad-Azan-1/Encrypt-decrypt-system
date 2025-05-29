@@ -69,10 +69,10 @@ def prev_data():
 def add_users(users_data):
    previuos_data = prev_data()
    usernames = {x['name'] for x in users_data}
-
-   for data in previuos_data:
-       if data['name'] not in usernames:
-            stored_data.append(data)
+   if previuos_data:
+        for data in previuos_data:
+            if data['name'] not in usernames:
+                stored_data.append(data)
 
    with open(USER_FILE , 'w') as f:
         json.dump(users_data,f , indent=4)
@@ -86,23 +86,33 @@ option = st.sidebar.selectbox("Options",menu)
 @st.cache_data 
 def check_credentials(name:str , password:str): #? to check credentials first we need to load data from json file
     users_data = prev_data()
-    for user_credentials in users_data:
-        if(user_credentials["name"] == name and user_credentials['data']["hash_pass"] == hash_passkey(password)):
-            return True
+    if users_data:
+        for user_credentials in users_data:
+            if(user_credentials["name"] == name and user_credentials['data']["hash_pass"] == hash_passkey(password)):
+                return True
+            else:
+                st.error("Invalid credentials, you username or password is incorrect if you are new please register first")
+                return False
     else:
-        st.error("Invalid credentials, you username or password is incorrect if you are new please register first")
-        return False
+         st.error("Invalid credentials, you username or password is incorrect if you are new please register first")
+         return False
+
 
 
 def register_new_user(name , password):
-     users_data = prev_data()
-     for user_credentials in users_data:
-        if(user_credentials["name"] == name or user_credentials['data']["hash_pass"] == hash_passkey(password)):
-            st.error(f"The user name {name} is already taken")
-            return False
-        else:
-            st.success(f"You have successfully register {name}")
-            return True
+    users_data = prev_data()
+    if users_data:
+        for user_credentials in users_data:
+            if(user_credentials["name"] == name or user_credentials['data']["hash_pass"] == hash_passkey(password)):
+                st.error(f"The user name {name} is already taken")
+                return False
+            else:
+                st.success(f"You have successfully register {name}")
+                return True
+    else:
+        st.success(f"You have successfully register {name}")
+        return True
+        
 
 #? login
 if option == 'login / register':
@@ -118,6 +128,7 @@ if option == 'login / register':
         st.markdown("</div>", unsafe_allow_html=True)
         if login_btn:
             if check_credentials(name,password):
+                print('running2')
                 st.success(f"Welcome {name}")
            
                
@@ -134,6 +145,7 @@ if option == 'login / register':
         st.markdown("</div>", unsafe_allow_html=True)
         if regis_btn:
             if register_new_user(name , password):
+                # print('running2')
                 stored_data.append({"name":name , "data":{"encrypted_text": None , "hash_pass" : hash_passkey(password) }})
                 add_users(stored_data)
 
